@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击播放音乐</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>lemon大转盘</h1>
+    <p>有1/6的几率播到哦ww</p>
+    <button id="playButton">播放音乐</button>
+
+    <script>
+        // 设置曲目A的播放概率（范围：0到1）
+        const probabilityA = 0.8333; // 例如，这里设置曲目A的播放概率为70%
+
+        // 获取按钮元素
+        const playButton = document.getElementById('playButton');
+
+        // 创建音频对象
+        const audioA = new Audio('曲目a.mp3'); // 替换为曲目A的音频文件路径
+        const audioB = new Audio('曲目b.mp3'); // 替换为曲目B的音频文件路径
+
+        // 为按钮添加点击事件
+        playButton.addEventListener('click', function() {
+            // 随机决定播放曲目A或曲目B
+            const randomValue = Math.random(); // 生成一个0到1的随机数
+            if (randomValue < probabilityA) {
+                audioA.play(); // 播放曲目A
+            } else {
+                audioB.play(); // 播放曲目B
+            }
+        });
+    </script>
+</body>
+</html>
