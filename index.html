@@ -15,12 +15,19 @@
             font-size: 16px;
             cursor: pointer;
         }
+        #statusMessage, #clickCountMessage {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <h1>lemon大转盘</h1>
     <p>有1/6的几率播到哦ww</p>
     <button id="playButton">开转！</button>
+    <div id="statusMessage"></div>
+    <div id="clickCountMessage">点击次数：0</div>
 
     <script>
         // 设置曲目A的播放概率（范围：0到1）
@@ -28,24 +35,40 @@
 
         // 获取按钮元素
         const playButton = document.getElementById('playButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const clickCountMessage = document.getElementById('clickCountMessage');
 
         // 创建音频对象
         const audioA = new Audio('曲目a.mp3'); // 替换为曲目A的音频文件路径
         const audioB = new Audio('曲目b.mp3'); // 替换为曲目B的音频文件路径
 
+        let clickCount = 0;
+
         // 为按钮添加点击事件
         playButton.addEventListener('click', function() {
+            clickCount++;
+            clickCountMessage.textContent = `点击次数：${clickCount}`;
+
             // 使用更可靠的随机算法
             const randomValue = Math.random(); // 生成一个0到1的随机数
             const choice = randomValue < probabilityA ? 'A' : 'B';
 
+            if (!audioA.paused) {
+                audioA.pause();
+                audioA.currentTime = 0; // 重置播放位置
+            }
+            if (!audioB.paused) {
+                audioB.pause();
+                audioB.currentTime = 0; // 重置播放位置
+            }
+
             // 根据选择播放对应的音频
             if (choice === 'A') {
                 audioA.play(); // 播放曲目A
-                console.log('播放曲目A');
+                statusMessage.textContent = '恭喜你！播放到了正版lemon！';
             } else {
                 audioB.play(); // 播放曲目B
-                console.log('播放曲目B');
+                statusMessage.textContent = '爆！';
             }
         });
     </script>
