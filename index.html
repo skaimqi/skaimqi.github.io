@@ -18,13 +18,13 @@
     </style>
 </head>
 <body>
-    <h1>lemon大转盘</h1>
-    <p>有1/6的几率播到哦ww</p>
+    <h1>点击播放随机音乐</h1>
+    <p>点击按钮即可播放曲目A或曲目B。</p>
     <button id="playButton">播放音乐</button>
 
     <script>
         // 设置曲目A的播放概率（范围：0到1）
-        const probabilityA = 0.8333; // 例如，这里设置曲目A的播放概率为70%
+        const probabilityA = 0.7; // 例如，这里设置曲目A的播放概率为70%
 
         // 获取按钮元素
         const playButton = document.getElementById('playButton');
@@ -35,12 +35,17 @@
 
         // 为按钮添加点击事件
         playButton.addEventListener('click', function() {
-            // 随机决定播放曲目A或曲目B
+            // 使用更可靠的随机算法
             const randomValue = Math.random(); // 生成一个0到1的随机数
-            if (randomValue < probabilityA) {
+            const choice = randomValue < probabilityA ? 'A' : 'B';
+
+            // 根据选择播放对应的音频
+            if (choice === 'A') {
                 audioA.play(); // 播放曲目A
+                console.log('播放曲目A');
             } else {
                 audioB.play(); // 播放曲目B
+                console.log('播放曲目B');
             }
         });
     </script>
